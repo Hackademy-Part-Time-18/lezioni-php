@@ -5,6 +5,7 @@ class Movie {
     public $directory;
     public $actors = [];
     public static $count = 0;
+    public static $countActor = 0;
     
     public function __construct($titolo, $regista, $attori)
     {

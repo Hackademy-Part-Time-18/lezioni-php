@@ -5,6 +5,7 @@ function checkFirstRule($password){
     if(strlen($password) >= 8){
         return true;
     }
+    echo "Lunghezza non raggiunta\n";
     return false;
 }
 
@@ -36,18 +37,29 @@ function checkFourthRule($password){
     return false;
 }
 
-function checkPassword(){
-    $password = readline("Inserisci la password: ");
-    $firstRule = checkFirstRule($password);
-    $secondRule = checkSecondRule($password);
-    $thirdRule = checkThirdRule($password);
-    $fourthRule = checkFourthRule($password);
-
-    if($firstRule && $secondRule && $thirdRule && $fourthRule){
-        echo "La password inserita è valida";
-    } else {
-        echo "La password inserita non è valida";
+function validate($password){
+    if(checkFirstRule($password) && checkSecondRule($password) && checkThirdRule($password) && checkFourthRule($password)){
+        return true;
     }
+    return false;
+}
+
+function checkPassword(){
+    $maxTentativi = 3;
+    for($i = 0; $i < $maxTentativi; $i++){
+        $password = readline("Inserisci la password: ");
+
+        if(validate($password) == true){
+            echo "La password inserita è valida\n";
+            break;
+        } else {
+            echo "La password inserita non è valida\n";
+        }
+        if($i == $maxTentativi){
+            echo "Hai superato il numero massimo di tentativi.\n";
+        }
+    }
+
 }
 
 checkPassword();
